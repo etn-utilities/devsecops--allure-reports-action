@@ -45,7 +45,7 @@ echo "<meta http-equiv=\"Pragma\" content=\"no-cache\"><meta http-equiv=\"Expire
 #cat ./${INPUT_ALLURE_HISTORY}/index.html
 
 #echo "executor.json"
-echo '{"name":"GitHub Actions","type":"github","reportName":"Allure Report with history",' > executor.json
+echo '{"name":"GitHub Actions","type":"github","reportName":"${INPUT_ALLURE_REPORT_NAME}",' > executor.json
 echo "\"url\":\"${GITHUB_PAGES_WEBSITE_URL}\"," >> executor.json # ???
 echo "\"reportUrl\":\"${GITHUB_PAGES_WEBSITE_URL}/${INPUT_GITHUB_RUN_NUM}/\"," >> executor.json
 echo "\"buildUrl\":\"${INPUT_GITHUB_SERVER_URL}/${{ github.repository }}/actions/runs/${INPUT_GITHUB_RUN_ID}\"," >> executor.json
