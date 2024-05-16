@@ -53,6 +53,10 @@ inputs:
     description: 'GitHub server URL'
     required: true
     default: ${{ github.server_url }}
+  allure_report_name:
+    description: 'GitHub server URL'
+    required: false
+    default: 'Allure Report with history'
 runs:
   using: 'docker'
   image: 'Dockerfile'
