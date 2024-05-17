@@ -57,6 +57,10 @@ inputs:
     description: 'GitHub server URL'
     required: false
     default: 'Allure Report with history'
+  remote_repo_url:
+    description: 'Remote repo url'
+    required: false
+    default: ${{ github.repository }}
 runs:
   using: 'docker'
   image: 'Dockerfile'
