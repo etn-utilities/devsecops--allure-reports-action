@@ -8,9 +8,7 @@ cp -r ./${INPUT_GH_PAGES}/. ./${INPUT_ALLURE_HISTORY}
 
 REPOSITORY_OWNER_SLASH_NAME=${INPUT_GITHUB_REPO}
 REPOSITORY_NAME=${REPOSITORY_OWNER_SLASH_NAME##*/}
-#if the remote repo is not provided then INPUT_REMOTE_REPO_URL will have the value of INPUT_GITHUB_REPO as per default values
-INPUT_REMOTE_REPO_URL=${INPUT_REMOTE_REPO_URL##*/}
-GITHUB_PAGES_WEBSITE_URL="https://${INPUT_GITHUB_REPO_OWNER}.github.io/${INPUT_REMOTE_REPO_URL}"
+GITHUB_PAGES_WEBSITE_URL="https://${INPUT_GITHUB_REPO_OWNER}.github.io/${REPOSITORY_NAME}"
 #echo "Github pages url $GITHUB_PAGES_WEBSITE_URL"
 
 if [[ ${INPUT_SUBFOLDER} != '' ]]; then
@@ -45,13 +43,12 @@ fi
 echo "<!DOCTYPE html><meta charset=\"utf-8\"><meta http-equiv=\"refresh\" content=\"0; URL=${GITHUB_PAGES_WEBSITE_URL}/${INPUT_GITHUB_RUN_NUM}/index.html\">" > ./${INPUT_ALLURE_HISTORY}/index.html # path
 echo "<meta http-equiv=\"Pragma\" content=\"no-cache\"><meta http-equiv=\"Expires\" content=\"0\">" >> ./${INPUT_ALLURE_HISTORY}/index.html
 #cat ./${INPUT_ALLURE_HISTORY}/index.html
-echo ${INPUT_REMOTE_REPO_URL}
-echo ${REPOSITORY_NAME}
+
 #echo "executor.json"
-echo '{"name":"GitHub Actions","type":"github","reportName":${INPUT_ALLURE_REPORT_NAME},' > executor.json
+echo '{"name":"GitHub Actions","type":"github","reportName":"Allure Report with history",' > executor.json
 echo "\"url\":\"${GITHUB_PAGES_WEBSITE_URL}\"," >> executor.json # ???
 echo "\"reportUrl\":\"${GITHUB_PAGES_WEBSITE_URL}/${INPUT_GITHUB_RUN_NUM}/\"," >> executor.json
-echo "\"buildUrl\":\"${INPUT_GITHUB_SERVER_URL}/${REPOSITORY_NAME}/actions/runs/${INPUT_GITHUB_RUN_ID}\"," >> executor.json
+echo "\"buildUrl\":\"${INPUT_GITHUB_SERVER_URL}/${INPUT_GITHUB_REPO}/actions/runs/${INPUT_GITHUB_RUN_ID}\"," >> executor.json
 echo "\"buildName\":\"GitHub Actions Run #${INPUT_GITHUB_RUN_ID}\",\"buildOrder\":\"${INPUT_GITHUB_RUN_NUM}\"}" >> executor.json
 #cat executor.json
 mv ./executor.json ./${INPUT_ALLURE_RESULTS}
