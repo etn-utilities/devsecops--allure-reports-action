@@ -1,4 +1,4 @@
-name: 'Allure Report with history'
+name: 'Generate Allure Report with history'
 description: 'Generate Allure Report with history'
 author: 'simple-elf'
 branding:
@@ -53,6 +53,14 @@ inputs:
     description: 'GitHub server URL'
     required: true
     default: ${{ github.server_url }}
+  allure_report_name:
+    description: 'If you want custom Allure report name then you can mention here the default report name is Allure Report with history'
+    required: false
+    default: 'Allure Report with history'
+  remote_repo_name:
+    description: 'Remote repo name, this is required if you want to deploy results to a remote repository using Github Pages'
+    required: false
+    default: ${{ github.repository }}
 runs:
   using: 'docker'
   image: 'Dockerfile'

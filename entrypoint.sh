@@ -8,7 +8,11 @@ cp -r ./${INPUT_GH_PAGES}/. ./${INPUT_ALLURE_HISTORY}
 
 REPOSITORY_OWNER_SLASH_NAME=${INPUT_GITHUB_REPO}
 REPOSITORY_NAME=${REPOSITORY_OWNER_SLASH_NAME##*/}
-GITHUB_PAGES_WEBSITE_URL="https://${INPUT_GITHUB_REPO_OWNER}.github.io/${REPOSITORY_NAME}"
+#when user do not provide any input for REMOTE_REPO_NAME, Its default value is current repository with org name like etn-utilities/yuk-qa-yukon
+REMOTE_REPO_NAME=${INPUT_REMOTE_REPO_NAME}
+#lets remove the org name from it since the gh-pages url looks like this https://etn-utilities.github.io/yuk-qa-yukon/35/index.html
+REMOTE_REPO_NAME=${REMOTE_REPO_NAME##*/}
+GITHUB_PAGES_WEBSITE_URL="https://${INPUT_GITHUB_REPO_OWNER}.github.io/${REMOTE_REPO_NAME}"
 #echo "Github pages url $GITHUB_PAGES_WEBSITE_URL"
 
 if [[ ${INPUT_SUBFOLDER} != '' ]]; then
@@ -45,7 +49,7 @@ echo "<meta http-equiv=\"Pragma\" content=\"no-cache\"><meta http-equiv=\"Expire
 #cat ./${INPUT_ALLURE_HISTORY}/index.html
 
 #echo "executor.json"
-echo '{"name":"GitHub Actions","type":"github","reportName":"Allure Report with history",' > executor.json
+echo "{\"name\":\"GitHub Actions\",\"type\":\"github\",\"reportName\":\"${INPUT_ALLURE_REPORT_NAME}\"," > executor.json
 echo "\"url\":\"${GITHUB_PAGES_WEBSITE_URL}\"," >> executor.json # ???
 echo "\"reportUrl\":\"${GITHUB_PAGES_WEBSITE_URL}/${INPUT_GITHUB_RUN_NUM}/\"," >> executor.json
 echo "\"buildUrl\":\"${INPUT_GITHUB_SERVER_URL}/${INPUT_GITHUB_REPO}/actions/runs/${INPUT_GITHUB_RUN_ID}\"," >> executor.json
