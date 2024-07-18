@@ -2,7 +2,7 @@
 
 Generates Allure Report with history.
 
-Example workflow file [allure-report](https://github.com/simple-elf/allure-report-action/blob/master/.github/workflows/allure-report.yml)
+Example workflow file [allure-report](https://github.com/etn-utilities/yuk-qa-yukon/blob/master/.github/workflows/smoke_master.yml)
 
 ## Inputs
 
